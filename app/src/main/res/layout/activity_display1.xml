@@ -87,14 +87,14 @@
             android:orientation="horizontal">
 
             <Spinner
-                android:id="@+id/spinner1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:padding="0dip"
-                style="@style/spinStyle">
+            android:id="@+id/spinner1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="0dip"
+            style="@style/spinStyle">
 
-            </Spinner>
+        </Spinner>
 
             <Spinner
                 android:id="@+id/spinner2"

@@ -20,6 +20,7 @@
         </activity>
         <activity android:name=".display1" />
         <activity android:name=".display2" />
+        <activity android:name=".Calendar" />
     </application>
 
 </manifest>

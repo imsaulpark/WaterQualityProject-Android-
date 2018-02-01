@@ -52,6 +52,7 @@ public class display1 extends AppCompatActivity implements AdapterView.OnItemSel
     private static final String TAG_CRITERIA_DESC = "criteria_desc";
     private static final String TAG_UNIT = "unit";
     private static final String TAG_IDDATAPOINT = "iddatapoint";
+    private static final String TAG_TIMESTAMP = "timestamp";
 
     String myJSON;
     JSONArray locations = null;
@@ -61,7 +62,11 @@ public class display1 extends AppCompatActivity implements AdapterView.OnItemSel
     Vector<String> vector4 = new Vector<String>();
     Vector<String> vector_criteria = new Vector<String>();
     Vector<String> vector_data = new Vector<String>();
+    ArrayList<String> al_timestamp = new ArrayList<String>();
+    ArrayList<String> al_value = new ArrayList<String>();
+    ArrayList<String> al_criteria = new ArrayList<String>();
     String[][] data;
+    String location4;
 
     LinearLayout parent_layout;
 
@@ -88,7 +93,7 @@ public class display1 extends AppCompatActivity implements AdapterView.OnItemSel
         try {
             JSONObject jsonObj = new JSONObject(myJSON);
             locations = jsonObj.getJSONArray(TAG_RESULTS);
-            data = new String[locations.length()][12];
+            data = new String[locations.length()][13];
 
             entries1 =  new ArrayList<String>(Arrays.asList(""));
             entries2 =  new ArrayList<String>(Arrays.asList(""));
@@ -117,6 +122,7 @@ public class display1 extends AppCompatActivity implements AdapterView.OnItemSel
                 data[i][9] = c.getString(TAG_FLAG);
                 data[i][10] = c.getString(TAG_UNIT);
                 data[i][11] = c.getString(TAG_IDDATAPOINT);
+                data[i][12] = c.getString(TAG_TIMESTAMP);
 
                 if(!vector1.contains(data[i][1]))
                 {
@@ -175,6 +181,7 @@ public class display1 extends AppCompatActivity implements AdapterView.OnItemSel
             case R.id.spinner2:
                 vector3.clear();
                 adapter3.clear();
+
                 for (int i = 0; i < locations.length(); i++) {
                     if (data[i][2].equals(vector2.get(arg2))) {
                         if (!vector3.contains(data[i][3])) {
@@ -207,11 +214,12 @@ public class display1 extends AppCompatActivity implements AdapterView.OnItemSel
 
 
             case R.id.spinner4:
+                al_timestamp.clear();
+                al_value.clear();
+                al_criteria.clear();
                 index4=arg2;
-                Log.d("SPINER4", "!!");
+                location4=vector4.get(index4);
                 for (int i = 0; i < vector_data.size(); i++) {
-
-                    Log.d("REMOVE", "!!");
                     parent_layout.removeView(parent_layout.findViewWithTag("new"));
                 }
 
@@ -220,7 +228,9 @@ public class display1 extends AppCompatActivity implements AdapterView.OnItemSel
                 for (int i = 0; i < locations.length(); i++) {
                     if (!vector_criteria.contains(data[i][5])) {
                         vector_criteria.add(data[i][5]);
-                        Log.d("CRITERIAAAAAAAAAAA", data[i][5]+"");
+                        al_criteria.add(data[i][5]);
+
+                        Log.d("CT",al_criteria.get(0));
                     }
                 }
 
@@ -231,8 +241,9 @@ public class display1 extends AppCompatActivity implements AdapterView.OnItemSel
                         if(vector_criteria.get(i).equals(data[j][5]) && vector1.get(index1).equals(data[j][1]) && vector2.get(index2).equals(data[j][2]) && vector3.get(index3).equals(data[j][3]) && vector4.get(index4).equals(data[j][4]))
                         {
                             vector_data.add(data[j][11]);
-                            Log.d("DATAAAAAAAAAAAA", data[j][5]+"");
-
+                            al_timestamp.add(data[j][12]);
+                            al_value.add(data[j][8]);
+                            Log.d("TTTT",al_timestamp.get(0));
 
                             LinearLayout newLayout= new LinearLayout(this);
                             LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -274,6 +285,9 @@ public class display1 extends AppCompatActivity implements AdapterView.OnItemSel
 
                             parent_layout.addView(newLayout);
                             Log.d("SIZE", vector_data.size()+"");
+                            Log.d("TTTT",al_timestamp.get(0));
+
+                            Log.d("CT",al_criteria.get(0));
                             break;
                         }
                     }
@@ -340,7 +354,19 @@ public class display1 extends AppCompatActivity implements AdapterView.OnItemSel
         onBackPressed();
     }
     public void category_clicked(View v){
-        Intent i = new Intent(getApplicationContext(), display1.class);
+
+        Intent i = new Intent(getApplicationContext(), display2.class);
+
+        i.putExtra("date1", "null");
+        i.putExtra("date2", "null");
+        i.putExtra("which_date", "null");
+        i.putExtra("timestamp", al_timestamp);
+        i.putExtra("value", al_value);
+        i.putExtra("criteria", al_criteria);
+        i.putExtra("location4",location4);
+
+        Log.d("CT",al_criteria.get(0));
+
         startActivity(i);
     }
 }
