@@ -1,13 +1,13 @@
 package com.example.saulpark.wqp;
 
-        import android.content.Intent;
-        import android.os.Bundle;
-        import android.support.annotation.NonNull;
-        import android.support.annotation.Nullable;
-        import android.support.v7.app.AppCompatActivity;
-        import android.util.Log;
-        import android.view.View;
-        import android.widget.CalendarView;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.CalendarView;
 
 /**
  * Created by SEORA on 2018-02-01.
@@ -17,7 +17,7 @@ public class Calendar extends AppCompatActivity {
 
     private static final String TAG = "Calendar";
     private CalendarView mCalendarView;
-    String date1,date2,which_date,location4;
+    String date1,date2,which_date,location4,which_criteria;
 
 
     @Override
@@ -33,7 +33,7 @@ public class Calendar extends AppCompatActivity {
         date2 = incomingIntent.getStringExtra("date2");
         which_date = incomingIntent.getStringExtra("which_date");
         location4 = incomingIntent.getStringExtra("location4");
-
+        which_criteria = incomingIntent.getStringExtra("which_criteria");
 
         mCalendarView = (CalendarView) findViewById(R.id.calendarView);
 
@@ -54,6 +54,8 @@ public class Calendar extends AppCompatActivity {
                     calintent.putExtra("timestamp", getIntent().getStringArrayListExtra("timestamp"));
                     calintent.putExtra("value", getIntent().getStringArrayListExtra("value"));
                     calintent.putExtra("criteria", getIntent().getStringArrayListExtra("criteria"));
+                    calintent.putExtra("criteria_list", getIntent().getStringArrayListExtra("criteria_list"));
+                    calintent.putExtra("which_criteria",which_criteria);
 
                 }
                 else
@@ -65,6 +67,8 @@ public class Calendar extends AppCompatActivity {
                     calintent.putExtra("timestamp", getIntent().getStringArrayListExtra("timestamp"));
                     calintent.putExtra("value", getIntent().getStringArrayListExtra("value"));
                     calintent.putExtra("criteria", getIntent().getStringArrayListExtra("criteria"));
+                    calintent.putExtra("criteria_list", getIntent().getStringArrayListExtra("criteria_list"));
+                    calintent.putExtra("which_criteria",which_criteria);
                 }
                 startActivity(calintent);
 
